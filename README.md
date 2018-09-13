@@ -1,19 +1,23 @@
 # radiru
-radiru CLI :radio:
+radiru CLI
+
+:radio: [NHKラジオ らじる★らじる 聴き逃し](http://www.nhk.or.jp/radio/ondemand/detail.html)
 
 # Requirements
 - curl
 
 # Features
 
-## Program Details
+## On-demand Program Details
 
-show all programs in available.
+`./radiru.sh info <id>` shows all programs in available (as json).
+- `id`: query parameter `p` of url (http://www.nhk.or.jp/radio/ondemand/detail.html?p=4320_01 --> `4320_01`)
+
 ```
 % ./radiru.sh info 4320_01 | jq .
 ```
 
-show streaming urls.
+example) shows streaming urls.
 ```
 % ./radiru.sh info 4320_01 | jq '.main.detail_list[] | .headline_id, .headline, .file_list[].file_name'
 ```
