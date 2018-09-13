@@ -17,7 +17,14 @@ radiru CLI
 % ./radiru.sh info 4320_01 | jq .
 ```
 
-example) shows streaming urls.
+example) shows streaming urls & downloads mp3.
 ```
-% ./radiru.sh info 4320_01 | jq '.main.detail_list[] | .headline_id, .headline, .file_list[].file_name'
+% ./radiru.sh info 4320_01 | jq '.main.detail_list[].file_list[] | {open_time, file_name}'
+{
+  "open_time": "2018-09-12T18:00:00+09:00",
+  "file_name": "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.m3u8"
+}
+...
+
+% ffmpeg -i 'https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.m3u8' out.mp3
 ```
