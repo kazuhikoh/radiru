@@ -23,7 +23,7 @@ shift
 case "$subcommand" in
   info)
     [ "$1" = "" ] && {
-    exit 1
-  }
-  info "$1"
+      exit 1
+    }
+    info "$1"
 esac
