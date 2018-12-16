@@ -5,7 +5,7 @@ function usage {
 Usage: radiru <command> [argument...]
 
  Commands:
-    info  shows on-demand program details. 
+    info  shows archived program details. 
 
 Usage: radiru info <id>
   \`id\` is query parameter `p` of url
