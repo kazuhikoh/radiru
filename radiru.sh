@@ -14,11 +14,16 @@ Usage: radiru info [-m] <id>
   Options:
   -m Minimum output.
 
+Usage: download <id> <filename-prefix> [directory]
+  All programs will be downloaded as `<filename-prefix>.YYYYMMDD.N.<headline>-<title>.mp3`
+
 Examples:
   radiru info 4320_01 | jq '.main.detail_list[].file_list[] | {open_time, file_name}'
 
   radiru info 4320_01 | jq -c '.main.detail_list[].file_list[] | {file_name, open_time, seq, file_title}' | sed -E 's|^.*"file_name":"(.+?)","open_time":"(....)\-(..)\-(..)[^ ]+".*"seq":(.+?),.*"file_title":"(.+?)".*}|ffmpeg -i "\1" "pva.\2\3\4.\5.\6.mp3"|g'
 
+  radiru download 4320_01 pva ~/Videos/pva/
+  - All programs of `4320_01` will be downloaded as `pva.YYYYMMDD.N.XXXX.mp3`.
 EOF
 }
 
@@ -69,6 +74,31 @@ function info {
   fi 
 }
 
+# create_download_command <url> <date> <seq> <headline> <title> <filename-prefix> <directory>
+function download_execute {
+  local url="$1"
+  local filename="$6.$2.$3.$4.$5.mp3"
+  local filepath="${7%%/}/$filename"
+
+  [ ! -s $filepath ] && {
+    echo "Download: $filename"
+    ffmpeg -i "$url" "$filepath" >&2
+  } || {
+    echo "Skip: $filename"
+  }
+}
+export -f download_execute
+
+# download <id> <filename-prefix> [directory]
+function download {
+  local id=$1
+  local prefix="$2"
+  local directory="${3:-.}"
+
+  info $id true \
+    | xargs -I{} bash -c "download_execute {} \"$prefix\" \"$directory\""
+}
+
 subcommand="$1"
 shift
 
@@ -88,6 +118,12 @@ case "$subcommand" in
       exit 1
     }
     info "$1" "$OUTPUT_MINIMUM"
+    ;;
+  download)
+    [ "$1" = "" ] && {
+      exit 1
+    }
+    download "$1" "$2" "$3"
     ;;
   *)
     usage
