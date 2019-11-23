@@ -27,6 +27,13 @@ Examples:
 EOF
 }
 
+# index
+function index {
+  local url='http://www.nhk.or.jp/radioondemand/json/index/index.json'
+
+  curl "$url"
+}
+
 function ondemandUrl {
   local id="$1"
   local filepath="$2"
@@ -113,6 +120,9 @@ done
 shift $(($OPTIND - 1))
 
 case "$subcommand" in
+  index)
+    index
+    ;;
   info)
     [ "$1" = "" ] && {
       exit 1
