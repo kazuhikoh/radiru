@@ -30,8 +30,15 @@ EOF
 # index
 function index {
   local url='http://www.nhk.or.jp/radioondemand/json/index/index.json'
+  curl "$url" 
+}
 
-  curl "$url"
+# search <word>
+function search {
+  local word=$1
+  local filter=".data_list[] | select(.program_name | test(\"$word\"))"
+
+  index | jq "$filter"
 }
 
 function ondemandUrl {
@@ -122,6 +129,9 @@ shift $(($OPTIND - 1))
 case "$subcommand" in
   index)
     index
+    ;;
+  search)
+    search $1
     ;;
   info)
     [ "$1" = "" ] && {
