@@ -1,0 +1,22 @@
+{
+  "name": "radiru",
+  "version": "1.0.0",
+  "description": "radiru CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kazuhikoh/radiru.git"
+  },
+  "keywords": [
+    "radiru"
+  ],
+  "author": "kazuhikoh <kazuhiko.hrmt@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kazuhikoh/radiru/issues"
+  },
+  "homepage": "https://github.com/kazuhikoh/radiru#readme"
+}
