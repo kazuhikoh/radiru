@@ -9,7 +9,10 @@ function index() {
       axios.get(url)
     )
     .map(res => {
-      return res.data
+      return res.data;
+    })
+    .flatMap(data => {
+      return Rx.Observable.from(data.data_list);
     });
 }
 

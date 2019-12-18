@@ -8,10 +8,18 @@ app
 
 app
   .command('index')
-  .action(() => {
-    api.index().subscribe(x => {
-      console.log(x);
-    });
+  .option('-s, --search <name>', 'search program name')
+  .action((cmd) => {
+    api.index()
+      .filter(x => {
+        return (!cmd.search || x.program_name.includes(cmd.search));
+      })
+      .subscribe(x => {
+        console.log(x);
+      });
   });
+
+app
+  .command('detail <siteId>')
 
 app.parse(process.argv);
