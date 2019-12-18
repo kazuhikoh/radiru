@@ -20,6 +20,12 @@ app
   });
 
 app
-  .command('detail <siteId>')
+  .command('program <siteId> <cornerId>')
+  .action((siteId, cornerId) => {
+    api.program(siteId, cornerId)
+      .subscribe(it => {
+        console.log(JSON.stringify(it, null, '\t'));
+      });
+  });
 
 app.parse(process.argv);
