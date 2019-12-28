@@ -2,7 +2,7 @@ const Rx = require('rxjs/Rx');
 const axios = require('axios');
 
 function index() {
-  const url = 'http://www.nhk.or.jp/radioondemand/json/index/index.json';
+  const url = 'http://www.nhk.or.jp/radioondemand/json/index_v3/index.json';
 
   return Rx.Observable
     .fromPromise(
