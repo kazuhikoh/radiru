@@ -84,7 +84,7 @@ function exec(siteId, cornerId, filename) {
         .fromPromise(procexec(cmdTestNone))
         .catch(err => {
           console.log(`File already exists: "${it.out}"`);
-          return Rx.Observable.never();
+          return Rx.Observable.empty();
         })
         .flatMap(output => {
           return Rx.Observable.of(it);
