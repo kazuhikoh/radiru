@@ -95,8 +95,13 @@ function exec(siteId, cornerId, filename) {
       return prev;
     }, [])
     .flatMap(targets => {
-      // show progress
       const ids = targets.map(it => it.out);
+
+      if (ids.length < 1) {
+        return Rx.Observable.empty();
+      }
+
+      // show progress
       const progress = new Multispinner(ids);
 
       progress.on('done', () => {
