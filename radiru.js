@@ -6,7 +6,7 @@ const api = require('./datasource/remote/radiru-api');
 const download = require('./internal/download');
 
 app
-  .version('1.0.0');
+  .version('1.1.0');
 
 app
   .command('index')
