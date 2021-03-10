@@ -114,7 +114,7 @@ function exec(siteId, cornerId, filename) {
         .from(targets)
         .flatMap(it => {
           const id = it.out;
-          const cmdDownload = `ffmpeg -n -i ${it.in} "${it.out}"`;
+          const cmdDownload = `ffmpeg -n -i ${it.in} -c copy "${it.out}"`;
 
           return Rx.Observable
             .fromPromise(procexec(cmdDownload))
