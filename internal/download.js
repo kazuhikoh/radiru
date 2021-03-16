@@ -27,7 +27,7 @@ function findTargets(siteId, cornerId, filename) {
     })
     .flatMap(it => {
       // variables that 'filename' template refer.
-      // ex) filename : ${program.site_id}.mp3
+      // ex) filename : ${program.site_id}.wav
       const {program, detail, file} = it;
       const out = genFilename(
           filename,
@@ -66,7 +66,7 @@ function exec(siteId, cornerId, filename) {
       // filename is duplicated => no action
       const dupFiles = files.filter((id, i) => files.indexOf(id) != i);
       if (dupFiles.length > 0) {
-        console.error('Duplicated filename exists! Use variables for filename. (e.g. "${file.file_id}.mp3")');
+        console.error('Duplicated filename exists! Use variables for filename. (e.g. "${file.file_id}.wav")');
         files.forEach((it, i) => {
           const x = dupFiles.includes(it) ? "x" : " "; 
           console.error(`${x} ${it}`);
